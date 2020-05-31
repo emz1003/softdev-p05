@@ -1,4 +1,4 @@
-# {{Project name}} by Pupiter Classroom
+# <Project name> by Pupiter Classroom
 
 **Roster/Roles**
 - Emily Zhang
@@ -17,3 +17,8 @@
    - PLACEHOLDER
    - PLACEHOLDER
    - PLACEHOLDER
+**Description**
+
+**APIs used(???)**
+
+**Launch codes**

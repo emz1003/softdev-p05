@@ -17,7 +17,9 @@
    - Search mechanism for posts
    - PLACEHOLDER
    - PLACEHOLDER
+   
 **Description**
+
 Our website aims to be an alternative to Google Classroom with added features/quality of life improvements. We want to take all of the best parts of various online school platforms (i.e. Google Classroom, Jupiter Ed, and PupilPath) while attempting to minimize the drawbacks. 
 
 **API(s) used**

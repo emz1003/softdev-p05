@@ -2,12 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Pupiter Classroom</title>
+    <title>List of classes</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<link href="../static/css/style.css" type="text/css" rel="stylesheet">
   </head>
   <body>
-    <a href="/auth"><button>Import data from Google Classroom</button></a>
+    <h3>List of courses</h3>
+    <ul>
+      {% for course in courses %}
+        <li>{{ course['name'] }}</li>
+      {% endfor %}
+    </ul>
   </body>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -1,4 +1,10 @@
 emilyZ -- 2020-05-31 13:18
 - Created design doc and added needed files and directories.
+
 emilyZ -- 2020-06-01 13:18
 - Added team flag
+
+kevinL -- 2020-06-01 13:24
+- README
+  - Link to the API used
+  - Launch codes

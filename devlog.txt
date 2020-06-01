@@ -1,2 +1,2 @@
 emilyZ -- 2020-05-31 13:18
-Created design doc and added needed files and directories.
+- Created design doc and added needed files and directories.

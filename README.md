@@ -19,6 +19,6 @@
    - PLACEHOLDER
 **Description**
 
-**APIs used(???)**
+**APIs used**
 
 **Launch codes**

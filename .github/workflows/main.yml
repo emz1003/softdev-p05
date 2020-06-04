@@ -12,9 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Decrypt secret_key.txt and client_secret.json
-      run: ../.github/scripts/decrypt.sh
+      run: .github/scripts/decrypt.sh
       env:
-        PASSPHRASE: ${{ secrets.PASSPHRASE }} 
+        PASSPHRASE: ${{ secrets.PASSPHRASE }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:

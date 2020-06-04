@@ -29,11 +29,11 @@ def home():
 
     # Call the Classroom API
     results = service.courses().list(pageSize=10).execute()
-    courses = results.get('courses', ['name'])
+    courses = results.get('courses', [])
 
     session['credentials'] = credentials_to_dict(credentials)
 
-    return render_template("api_test.html", courses = courses)
+    return render_template("classes.html", courses = courses)
 
 @app.route("/auth")
 def auth():

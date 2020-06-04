@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
+{% block title %}
+Classes
+{% endblock %}
+
 {% block content %}
-<a href="/logout">Logout</a>
 <h3>List of courses</h3>
 <ul>
   {% for course in courses %}
-    <li>{{ course['name'] }}</li>
+    <li>{{ course }}</li>
   {% endfor %}
 </ul>
 {% endblock %}

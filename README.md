@@ -1,10 +1,9 @@
 # Learnination Machine by Team Pupiter Classroom
 
 **Roster/Roles**
-- Emily Zhang
-  - Project manager
-  - Update README, make sure devlog is up to date
-  - Update design doc to reflect changes to project midway through
+- Emily Zhang (Project Manager)
+  - Oversees project development
+  - Updates devlog and design doc
  - Kevin Li
    - Interfacing with Google Classroom API
      - Sign in with Google

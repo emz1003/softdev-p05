@@ -20,10 +20,9 @@ jobs:
       with:
         python-version: 3.8
     - name: Install dependencies
-      run:
-        # python3 -m pip install --upgrade pip
+      run: |
         pip install -r requirements.txt
     - name: Execute __init__.py
-      run:
+      run: |
         cd app/
         python3 __init__.py

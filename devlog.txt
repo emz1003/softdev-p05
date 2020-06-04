@@ -11,3 +11,6 @@ kevinL -- 2020-06-01 13:24
 
 kevinL -- 2020-06-01 17:27
 - Code that pulls data from your GClass account as a proof of concept
+
+kevinL -- 2020-06-03 22:04
+- Stay logged in with Google, also logout button

@@ -1,48 +1,82 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import *
 import os
 import requests
+
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 
 CLIENT_SECRET_FILE = 'client_secret.json'
-
-AUTH_BASE_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
-TOKEN_URL = 'https://www.googleapis.com/oauth2/v4/token'
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly']
 
 app = Flask(__name__)
+# Secret key handling ========================================
+# To team: run str(os.urandom(32)) to get your own, and paste it into a secret_key.txt
+# file in the app/ directory.
+SECRET_KEY_FILE = 'secret_key.txt'
+file = open(SECRET_KEY_FILE, 'r')
+app.secret_key = file.read()
+file.close()
+# ============================================================
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    if 'credentials' not in session:
+        return render_template("login.html")
+
+    credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+    service = build('classroom', 'v1', credentials=credentials)
+
+    # Call the Classroom API
+    results = service.courses().list(pageSize=10).execute()
+    courses = results.get('courses', ['name'])
+
+    session['credentials'] = credentials_to_dict(credentials)
+
+    return render_template("api_test.html", courses = courses)
 
 @app.route("/auth")
 def auth():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRET_FILE, scopes=SCOPES)
 
-    flow.redirect_uri = url_for('import_from_api', _external = True)
-    auth_url = flow.authorization_url()
-    return redirect(auth_url[0])
+    flow.redirect_uri = url_for('callback', _external = True)
+    auth_url, state = flow.authorization_url(
+        access_type = 'offline',
+        include_granted_scopes = 'true')
 
-@app.route("/import")
-def import_from_api():
+    session['state'] = state
+
+    return redirect(auth_url)
+
+@app.route("/callback")
+def callback():
+    state = session['state']
+
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        CLIENT_SECRET_FILE, scopes=SCOPES)
-    flow.redirect_uri = url_for('import_from_api', _external = True)
+        CLIENT_SECRET_FILE, scopes=SCOPES, state = state)
+    flow.redirect_uri = url_for('callback', _external = True)
 
     auth_response = request.url
     flow.fetch_token(authorization_response = auth_response)
-    creds = flow.credentials
+    credentials = flow.credentials
+    session['credentials'] = credentials_to_dict(credentials)
 
-    service = build('classroom', 'v1', credentials=creds)
+    return redirect(url_for('home'))
 
-    # Call the Classroom API
-    results = service.courses().list(pageSize=10).execute()
-    courses = results.get('courses', ['name'])
+@app.route("/logout")
+def logout():
+    session.pop('state')
+    session.pop('credentials')
+    return redirect(url_for('home'))
 
-    return render_template("api_test.html", courses = courses)
+def credentials_to_dict(credentials):
+  return {'token': credentials.token,
+          'refresh_token': credentials.refresh_token,
+          'token_uri': credentials.token_uri,
+          'client_id': credentials.client_id,
+          'client_secret': credentials.client_secret,
+          'scopes': credentials.scopes}
 
 if __name__ == "__main__":
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"

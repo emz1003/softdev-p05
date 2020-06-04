@@ -24,4 +24,6 @@ jobs:
         # python3 -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Execute __init__.py
-      run: python3 app/__init__.py
+      run:
+        cd app/
+        python3 __init__.py

@@ -22,6 +22,6 @@ jobs:
     - name: Install dependencies
       run:
         # python3 -m pip install --upgrade pip
-        pip install -r ../requirements.txt
+        pip install -r requirements.txt
     - name: Execute __init__.py
-      run: python3 __init__.py
+      run: python3 app/__init__.py

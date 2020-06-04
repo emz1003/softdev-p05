@@ -17,5 +17,10 @@ kevinL -- 2020-06-03 22:04
 - Basic navbar
 
 kevinL -- 2020-06-04 09:00
-- Created a GitHub actions workflow, moving it out though to avoid
+- Created a GitHub Actions workflow, moving it out though to avoid
   perpetually running Flask app
+
+kevinL -- 2020-06-04 14:00
+- Only show active classes
+- Fix OAuth2 errors
+- Preliminary design doc

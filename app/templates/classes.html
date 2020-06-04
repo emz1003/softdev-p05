@@ -5,10 +5,12 @@ Classes
 {% endblock %}
 
 {% block content %}
-<h3>List of courses</h3>
-<ul>
+<div class="list-group">
   {% for course in courses %}
-    <li>{{ course }}</li>
+    {% if course['courseState'] == "ACTIVE" %}
+      <a href="#" class="list-group-item list-group-item-action"> {{ course['name'] }} </a>
+    {% endif %}
   {% endfor %}
-</ul>
+</div>
+
 {% endblock %}

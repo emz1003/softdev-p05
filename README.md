@@ -6,31 +6,30 @@
   - Update README, make sure devlog is up to date
   - Update design doc to reflect changes to project midway through
  - Kevin Li
-   - Interfacing with Google APIs to access Google Classroom data
-   - Import data from Google Classroom to this site
+   - Interfacing with Google Classroom API
+     - Sign in with Google
+     - GET data, POST data back to Google
    - Deployment to droplet via Flask (and Apache, if time permits)
  - William Lin
    - Database work
-   - PLACEHOLDER
-   - PLACEHOLDER
  - Henry Liu
    - Search mechanism for posts
-   - PLACEHOLDER
-   - PLACEHOLDER
-   
+
 **Description**
 
-Our website aims to be an alternative to Google Classroom with added features/quality of life improvements. We want to take all of the best parts of various online school platforms (i.e. Google Classroom, Jupiter Ed, and PupilPath) while attempting to minimize the drawbacks. 
+Our website aims to be an alternative portal to Google Classroom with added features/quality of life improvements, such as a better integrated calendar, the ability to hide classes, searching for posts, etc. Everything done on this site is reflected on Google Classroom.
 
 **API(s) used**
 - [Google Classroom API](https://developers.google.com/classroom/reference/rest)
 
-## Launch codes 
+## Launch codes
 **Dependencies**
 
 Your first step is to procure the client_secret.json file from collaborator Kevin Li. For security purposes, the file cannot be stored publicly. His email is kli00@stuy.edu.
 
 After procuring the file, merely drop it into the app/ directory.
+
+You will also need to create a secret_key.txt file in the app/ directory. Generate a key with os.urandom(32) in Python and paste it into that file.
 
 Next, you must install the pip modules listed in the requirements.txt file. To do so, install them in a terminal session with:
 ```pip install -r requirements.txt```

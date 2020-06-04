@@ -15,3 +15,7 @@ kevinL -- 2020-06-01 17:27
 kevinL -- 2020-06-03 22:04
 - Stay logged in with Google, also logout button
 - Basic navbar
+
+kevinL -- 2020-06-04 09:00
+- Created a GitHub actions workflow, moving it out though to avoid
+  perpetually running Flask app

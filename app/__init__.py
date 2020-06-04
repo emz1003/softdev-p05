@@ -7,7 +7,14 @@ import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 
 CLIENT_SECRET_FILE = 'client_secret.json'
-SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly']
+SCOPES = [
+    'https://www.googleapis.com/auth/classroom.courses.readonly',
+    'https://www.googleapis.com/auth/classroom.rosters.readonly',
+    'https://www.googleapis.com/auth/classroom.coursework.me',
+    'https://www.googleapis.com/auth/classroom.announcements.readonly',
+    'https://www.googleapis.com/auth/classroom.profile.emails',
+    'https://www.googleapis.com/auth/classroom.profile.photos'
+]
 
 app = Flask(__name__)
 # Secret key handling ========================================
@@ -19,21 +26,43 @@ app.secret_key = file.read()
 file.close()
 # ============================================================
 
+def credentials_to_dict(credentials):
+  return {'token': credentials.token,
+          'refresh_token': credentials.refresh_token,
+          'token_uri': credentials.token_uri,
+          'client_id': credentials.client_id,
+          'client_secret': credentials.client_secret,
+          'scopes': credentials.scopes}
+
+def get_curruserinfo(credentials):
+    gclass = build('classroom', 'v1', credentials=credentials)
+    userinfo = gclass.userProfiles().get(userId = "me").execute()
+
+    dict = {}
+    dict['name'] = userinfo['name']['fullName']
+    dict['id'] = userinfo['id']
+    dict['email'] = userinfo['emailAddress']
+    dict['avatar'] = userinfo['photoUrl']
+
+    return dict
+
+# Routes =====================================================
 @app.route("/")
 def home():
     if 'credentials' not in session:
         return render_template("login.html")
 
     credentials = google.oauth2.credentials.Credentials(**session['credentials'])
-    service = build('classroom', 'v1', credentials=credentials)
+    gclass = build('classroom', 'v1', credentials=credentials)
 
     # Call the Classroom API
-    results = service.courses().list(pageSize=10).execute()
+    results = gclass.courses().list(pageSize=20).execute()
     courses = results.get('courses', [])
+    userinfo = get_curruserinfo(credentials)
 
     session['credentials'] = credentials_to_dict(credentials)
 
-    return render_template("classes.html", courses = courses)
+    return render_template("classes.html", courses = courses, userinfo = userinfo)
 
 @app.route("/auth")
 def auth():
@@ -70,14 +99,6 @@ def logout():
     session.pop('state')
     session.pop('credentials')
     return redirect(url_for('home'))
-
-def credentials_to_dict(credentials):
-  return {'token': credentials.token,
-          'refresh_token': credentials.refresh_token,
-          'token_uri': credentials.token_uri,
-          'client_id': credentials.client_id,
-          'client_secret': credentials.client_secret,
-          'scopes': credentials.scopes}
 
 if __name__ == "__main__":
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"

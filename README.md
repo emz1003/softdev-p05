@@ -4,6 +4,8 @@
 - Emily Zhang (Project Manager)
   - Oversees project development
   - Updates devlog and design doc
+  - Gradebook
+  - Archive classes
  - Kevin Li
    - Interfacing with Google Classroom API
      - Sign in with Google
@@ -11,8 +13,10 @@
    - Deployment to droplet via Flask (and Apache, if time permits)
  - William Lin
    - Database work
+   - Front end
  - Henry Liu
    - Search mechanism for posts
+   - Calendar/To Do List
 
 **Description**
 

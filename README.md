@@ -32,8 +32,6 @@ Your first step is to procure the client_secret.json file from collaborator Kevi
 
 After procuring the file, merely drop it into the app/ directory.
 
-You will also need to create a secret_key.txt file in the app/ directory. Generate a key with os.urandom(32) in Python and paste it into that file.
-
 Next, you must install the pip modules listed in the requirements.txt file. To do so, install them in a terminal session with:
 ```pip install -r requirements.txt```
 

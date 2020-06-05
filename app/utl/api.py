@@ -25,5 +25,12 @@ def get_courses(credentials):
 
     results = gclass.courses().list(pageSize = 20).execute()
     courses = results.get('courses', [])
-    
+
     return courses
+
+def get_course(credentials, id):
+    gclass = build('classroom', 'v1', credentials = credentials)
+
+    results = gclass.courses().get(id = id).execute()
+
+    return results

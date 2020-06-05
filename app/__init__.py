@@ -8,6 +8,7 @@ from googleapiclient.discovery import build
 
 dirname = os.path.dirname(__file__) or '.'
 CLIENT_SECRET_FILE =  dirname + '/' + 'client_secret.json'
+userinfo = None
 
 SCOPES = [
     'https://www.googleapis.com/auth/classroom.courses.readonly',
@@ -35,6 +36,19 @@ def create_app():
         session['credentials'] = api.credentials_to_dict(credentials)
 
         return render_template("classes.html", courses = courses, userinfo = userinfo)
+
+    @app.route("/course/<id>")
+    def course(id):
+        if 'credentials' not in session:
+            return render_template("login.html")
+
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+
+        course = api.get_course(credentials, id)
+
+        session['credentials'] = api.credentials_to_dict(credentials)
+
+        return render_template("class.html", course = course, userinfo = userinfo)
 
     @app.route("/logout")
     def logout():

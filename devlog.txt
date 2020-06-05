@@ -31,3 +31,7 @@ emilyZ -- 2020-06-04 23:00
 kevinL -- 2020-06-05 08:50
 - Unit testing with pytest, not much can be tested since most of the app relies
   OAuth2 though
+
+kevinL -- 2020-06-05 17:12
+- Rudimentary single class page
+- Moved some code to utl module

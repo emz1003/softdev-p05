@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ course['name'] }}
+{% endblock %}
+
+{% block content %}
+
+<h1> {{ course['name'] }} </h1>
+<h3> ID: {{ course['id'] }} </h3>
+
+{% endblock %}

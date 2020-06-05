@@ -5,10 +5,11 @@ Classes
 {% endblock %}
 
 {% block content %}
+
 <div class="list-group">
   {% for course in courses %}
     {% if course['courseState'] == "ACTIVE" %}
-      <a href="#" class="list-group-item list-group-item-action"> {{ course['name'] }} </a>
+      <a href="{{ url_for('course', id = course['id'])}}" class="list-group-item list-group-item-action"> {{ course['name'] }} </a>
     {% endif %}
   {% endfor %}
 </div>

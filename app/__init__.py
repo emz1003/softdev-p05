@@ -6,7 +6,8 @@ import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 
-CLIENT_SECRET_FILE = 'client_secret.json'
+dirname = os.path.dirname(__file__) or '.'
+CLIENT_SECRET_FILE =  dirname + '/' + 'client_secret.json'
 SCOPES = [
     'https://www.googleapis.com/auth/classroom.courses.readonly',
     'https://www.googleapis.com/auth/classroom.rosters.readonly',

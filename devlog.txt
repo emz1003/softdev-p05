@@ -27,3 +27,7 @@ kevinL -- 2020-06-04 14:00
 
 emilyZ -- 2020-06-04 23:00
 - Add modified design doc
+
+kevinL -- 2020-06-05 08:50
+- Unit testing with pytest, not much can be tested since most of the app relies
+  OAuth2 though

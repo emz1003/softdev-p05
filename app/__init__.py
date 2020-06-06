@@ -48,11 +48,12 @@ def create_app():
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
         course = api.get_course(credentials, id)
+        posts = api.get_posts(credentials, id)
         userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("class.html", course = course, userinfo = userinfo)
+        return render_template("class.html", course = course, posts = posts, userinfo = userinfo)
 
     @app.route("/calendar")
     def calendar():

@@ -6,10 +6,10 @@ Calendar
 
 {% block content %}
 
-{% for course, events in calendar %}
-  <h3> {{ course }} </h3>
-  <table class="table table-hover">
-    <tbody>
+<h3> {{ course }} </h3>
+<table class="table table-hover">
+  <tbody>
+    {% for course, events in calendar %}
       {% for event in events %}
         <tr>
           <td> {{ event['due_day'] }} </td>
@@ -17,8 +17,8 @@ Calendar
           <td> {{ event['summary'] }} </td>
         </tr>
       {% endfor %}
-    </tbody>
-  </table>
-{% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock %}

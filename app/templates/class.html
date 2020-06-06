@@ -9,4 +9,13 @@
 <h1> {{ course['name'] }} </h1>
 <h3> ID: {{ course['id'] }} </h3>
 
+{% for post in posts %}
+  <h2> {{ post['title'] }} </h2>
+  <p> {{ post['description'] }} </p>
+  <p> {% if post['dueDate'] is defined %}
+        {{ post['dueDate'].year }}
+      {% endif %}
+  </p>
+{% endfor %}
+
 {% endblock %}

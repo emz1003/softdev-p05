@@ -17,7 +17,9 @@ SCOPES = [
     'https://www.googleapis.com/auth/classroom.announcements.readonly',
     'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly',
     'https://www.googleapis.com/auth/classroom.topics.readonly',
-    'https://www.googleapis.com/auth/classroom.push-notifications'
+    'https://www.googleapis.com/auth/classroom.push-notifications',
+    'https://www.googleapis.com/auth/calendar.readonly',
+    'https://www.googleapis.com/auth/calendar.events.readonly'
 ]
 
 def create_app():
@@ -46,11 +48,32 @@ def create_app():
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
         course = api.get_course(credentials, id)
-        students = api.get_roster(credentials, id)
+        userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("class.html", course = course, students = students, userinfo = userinfo)
+        return render_template("class.html", course = course, userinfo = userinfo)
+
+    @app.route("/calendar")
+    def calendar():
+        if 'credentials' not in session:
+            return render_template("login.html")
+
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+
+        courses = api.get_courses(credentials)
+        calendarIDs = []
+        for course in courses:
+            if course['courseState'] == "ACTIVE":
+                calendarIDs.append( (course['name'], course['calendarId']) )
+
+        eventsDict = api.get_events(credentials, calendarIDs)
+        #print(eventsDict)
+        userinfo = api.get_user_info(credentials, "me")
+
+        session['credentials'] = api.credentials_to_dict(credentials)
+
+        return render_template("calendar.html", events = eventsDict, userinfo = userinfo)
 
     @app.route("/logout")
     def logout():
@@ -95,6 +118,7 @@ def create_app():
 
 if __name__ == "__main__":
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
+    os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = "1"
     app = create_app()
     app.debug = True
     app.run()

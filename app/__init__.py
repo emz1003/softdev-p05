@@ -15,8 +15,9 @@ SCOPES = [
     'https://www.googleapis.com/auth/classroom.rosters.readonly',
     'https://www.googleapis.com/auth/classroom.coursework.me',
     'https://www.googleapis.com/auth/classroom.announcements.readonly',
-    'https://www.googleapis.com/auth/classroom.profile.emails',
-    'https://www.googleapis.com/auth/classroom.profile.photos'
+    'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly',
+    'https://www.googleapis.com/auth/classroom.topics.readonly',
+    'https://www.googleapis.com/auth/classroom.push-notifications'
 ]
 
 def create_app():
@@ -45,10 +46,11 @@ def create_app():
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
         course = api.get_course(credentials, id)
+        students = api.get_roster(credentials, id)
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("class.html", course = course, userinfo = userinfo)
+        return render_template("class.html", course = course, students = students, userinfo = userinfo)
 
     @app.route("/logout")
     def logout():

@@ -8,7 +8,7 @@
   - Gradebook
   - Archive classes
  - Kevin Li
-   - Interfacing with Google Classroom API
+   - Interfacing with Google Classroom/Calendar APIs
      - Sign in with Google
      - GET data, POST data back to Google
    - Deployment to droplet via Flask (and Apache, if time permits)
@@ -25,6 +25,7 @@ Our website aims to be an alternative portal to Google Classroom with added feat
 
 **API(s) used**
 - [Google Classroom API](https://developers.google.com/classroom/reference/rest)
+- [Google Calendar API](https://developers.google.com/calendar/v3/reference)
 
 ## Launch codes
 **Dependencies**
@@ -34,10 +35,14 @@ Your first step is to procure the client_secret.json file from collaborator Kevi
 After procuring the file, merely drop it into the app/ directory.
 
 Next, you must install the pip modules listed in the requirements.txt file. To do so, install them in a terminal session with:
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 It is recommended to run the above command inside a virtual environment. To create one, do:
-```python3 -m venv <name_of_venv>```
+```
+python3 -m venv <name_of_venv>
+```
 *Note that if your system only has Python 3 installed, just remove the 3 from the above command.*
 
 To activate the virtual environment, run:

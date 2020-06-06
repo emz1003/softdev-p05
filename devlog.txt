@@ -39,5 +39,7 @@ kevinL -- 2020-06-05 17:12
 kevinL -- 2020-06-06 11:28
 - Looks like class rosters can't be shown due to a bug in the API
   - https://stackoverflow.com/questions/43472767/google-classroom-not-returning-classmates-even-with-permission
+- Add 411 on Google Calendar API
 - Get Google Calendar events of user's classes
+  - Need to learn how to send a batch request, atm sending 10 separate requests is rather slow...
 - Show events in the form of a table (not a calendar)

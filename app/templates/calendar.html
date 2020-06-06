@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+Calendar
+{% endblock %}
+
+{% block content %}
+
+{% for course, events in calendar %}
+  <h3> {{ course }} </h3>
+  <table class="table table-hover">
+    <tbody>
+      {% for event in events %}
+        <tr>
+          <td> {{ event['due_day'] }} </td>
+          <td> {{ event['due_time'] }} </td>
+          <td> {{ event['summary'] }} </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endfor %}
+
+{% endblock %}

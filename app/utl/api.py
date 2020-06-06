@@ -1,7 +1,8 @@
 from googleapiclient.discovery import build
+import datetime
 
 # Calendar API =================================================================
-def get_events(credentials, courses):
+def get_calendar(credentials, courses):
     calendar = build('calendar', 'v3', credentials = credentials)
     dict = {}
 
@@ -12,8 +13,17 @@ def get_events(credentials, courses):
             events = calendar.events().list(calendarId = course[1], pageToken = page_token).execute()
             for event in events['items']:
                 # Dict mappings: https://developers.google.com/calendar/v3/reference/events#resource
-                # print(event['summary'])
-                arr.append(event)
+                summary = event['summary']
+                if "dateTime" in event['start']:
+                    due_date = str(event['start']['dateTime'])
+                    due_day = due_date[:10]
+                    due_time = due_date[11:16]
+                    arr.append({
+                        "summary": summary,
+                        "due_day": due_day,
+                        "due_time": due_time
+                    })
+
             page_token = events.get('nextPageToken')
             dict[course[0]] = arr
             # print("\n")
@@ -37,9 +47,9 @@ def get_user_info(credentials, userid):
 
     dict = {}
     dict['name'] = results['name']['fullName']
-    dict['id'] = results['id']
-    dict['email'] = results['emailAddress']
-    dict['avatar'] = results['photoUrl']
+    # dict['id'] = results['id']
+    # dict['email'] = results['emailAddress']
+    # dict['avatar'] = results['photoUrl']
 
     return dict
 

@@ -35,3 +35,9 @@ kevinL -- 2020-06-05 08:50
 kevinL -- 2020-06-05 17:12
 - Rudimentary single class page
 - Moved some code to utl module
+
+kevinL -- 2020-06-06 11:28
+- Looks like class rosters can't be shown due to a bug in the API
+  - https://stackoverflow.com/questions/43472767/google-classroom-not-returning-classmates-even-with-permission
+- Get Google Calendar events of user's classes
+- Show events in the form of a table (not a calendar)

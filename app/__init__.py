@@ -67,13 +67,13 @@ def create_app():
             if course['courseState'] == "ACTIVE":
                 calendarIDs.append( (course['name'], course['calendarId']) )
 
-        eventsDict = api.get_events(credentials, calendarIDs)
-        #print(eventsDict)
+        calendar = api.get_calendar(credentials, calendarIDs)
+        print(calendar)
         userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("calendar.html", events = eventsDict, userinfo = userinfo)
+        return render_template("calendar.html", calendar = calendar.items(), userinfo = userinfo)
 
     @app.route("/logout")
     def logout():

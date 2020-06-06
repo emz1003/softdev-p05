@@ -61,8 +61,18 @@ def get_course(credentials, courseid):
 
 def get_posts(credentials, courseid):
     gclass = build('classroom', 'v1', credentials = credentials)
+    posts = []
 
-    results = gclass.courses().courseWork().list(courseId = courseid).execute()
-    work = results.get('courseWork', [])
+    resultsWork = gclass.courses().courseWork().list(courseId = courseid).execute()
+    courseWork = resultsWork.get('courseWork', [])
+    for work in courseWork:
+        posts.append(work)
+    resultsAnnounce = gclass.courses().announcements().list(courseId = courseid).execute()
+    announcements = resultsAnnounce.get('announcements')
+    for announcement in announcements:
+        print(announcement)
+        posts.append(announcement)
 
-    return work
+    posts.sort(key = lambda x: x['updateTime'], reverse = True)
+
+    return posts

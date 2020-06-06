@@ -43,3 +43,7 @@ kevinL -- 2020-06-06 11:28
 - Get Google Calendar events of user's classes
   - Need to learn how to send a batch request, atm sending 10 separate requests is rather slow...
 - Show events in the form of a table (not a calendar)
+
+kevinL -- 2020-06-06 17:43
+- Show assignments and announcements on course page
+- Should probably just use classes rather than dealing with multiple dictionaries at once

@@ -1,4 +1,5 @@
 # Learnination Machine by Team Pupiter Classroom
+[![Actions Status](https://github.com/emz1003/softdev-p05/workflows/Web%20app/badge.svg)](https://github.com/emz1003/softdev-p05/actions)
 
 **Roster/Roles**
 - Emily Zhang (Project Manager)

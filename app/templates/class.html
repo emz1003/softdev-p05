@@ -10,17 +10,18 @@
 <h3> ID: {{ course['id'] }} </h3>
 
 {% for post in posts %}
-  <p> {{ post['creationTime'] }} </p>
-  <h2> {{ post['title'] }} </h2>
-  <p> {{ post['description'] }} </p>
-  <p> {{ post['text'] }} </p>
-  <p> {% if post['dueDate'] is defined %}
-        Due date:
-        {{ post['dueDate'].year }}/
-        {{ post['dueDate'].month }}/
-        {{ post['dueDate'].day }}
-      {% endif %}
-  </p>
+  <!-- only courseWork has a due date, not announcement -->
+  {% if post.dueDate is defined %}
+    <h3>Assignment</h3>
+    <p> {{ post.updateTime }} </p>
+    <p> Due on {{ post.dueDate }} at {{ post.dueTime }}</p>
+    <p> {{ post.title }} </p>
+    <p> {{ post.description }} </p>
+  {% else %}
+    <h3>Announcement</h3>
+    <p> {{ post.updateTime }} </p>
+    <p> {{ post.text }} </p>
+  {% endif %}
 {% endfor %}
 
 {% endblock %}

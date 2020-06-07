@@ -47,3 +47,5 @@ kevinL -- 2020-06-06 11:28
 kevinL -- 2020-06-06 17:43
 - Show assignments and announcements on course page
 - Should probably just use classes rather than dealing with multiple dictionaries at once
+- Jeez the Classroom API is lacking - there is no way of retrieving/making comments off posts, private or otherwise!
+  - https://issuetracker.google.com/issues/36882823

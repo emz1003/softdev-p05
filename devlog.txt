@@ -52,3 +52,6 @@ kevinL -- 2020-06-07 19:07
 - Jeez the Classroom API is lacking - there is no way of retrieving/making comments off posts, private or otherwise!
   - https://issuetracker.google.com/issues/36882823
 - Switch to using classes for posts/announcements to make it easier to distinguish between them
+
+williamL -- 2020-06-08: 13:14
+- added a database for storing hidden classes

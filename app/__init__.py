@@ -38,6 +38,7 @@ def create_app():
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
+
         return render_template("classes.html", courses = courses, userinfo = userinfo)
 
     @app.route("/course/<id>")
@@ -152,6 +153,7 @@ def create_app():
         return redirect(url_for('home'))
 
     # ==========================================================================
+
 
     return app
 

@@ -102,11 +102,22 @@ def create_app():
         session['credentials'] = api.credentials_to_dict(credentials)
         results = [] #when user first visits search page, no results are displayed
         userinfo = userinfo
-        return render_template('calendar.html', calendar = calendar.items(), userinfo = userinfo)
+        y = calendar.items()
+        if (request.args): #if user has made a search
+            if ('query' in request.args):
+                query = request.args['query'] #search keyword
+                for x in y:
+                    if (query in x):
+                        results = x
+            #print(results)
+        results = query
+
+        return render_template('calendar.html', results = results, userinfo = userinfo)
 #process search query
     @app.route("/query", methods=['POST'])
     def query():
-        return redirect(url_for('search')) #display results on search page
+          query = request.form['keyword']
+          return redirect(url_for('search', query=query)) #display results on search page
 
 
     # OAuth2 authentication ====================================================

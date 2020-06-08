@@ -13,17 +13,28 @@ Calendar
             <div class="default_option">All</div>
             <ul>
               <li>All</li>
-              <li>Recent</li>
-              <li>Popular</li>
+              <li>Due Date</li>
+              <li>Assignment</li>
             </ul>
         </div>
+        <form action="/query" method="POST">
         <div class="search_field">
-          <input type="text" class="input" placeholder="Search">
+          <input type="text" class="input" placeholder="Search" name = "keyword">
           <i class="fas fa-search"></i>
-      </div>
+        </div>
+        </form>
     </div>
 </div>
+<br></br>
+<br></br>
 
+Results: {{results}}
+<br></br>
+<br></br><br></br>
+<br></br><br></br>
+<br></br><br></br>
+<br></br><br></br>
+<br></br>
 <h3> {{ course }} </h3>
 <table class="table table-hover">
 

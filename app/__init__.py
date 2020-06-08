@@ -81,6 +81,33 @@ def create_app():
         session.pop('state')
         session.pop('credentials')
         return redirect(url_for('home'))
+        #search page with search bar
+    @app.route("/search")
+    def search():
+        if 'credentials' not in session:
+            return render_template("login.html")
+
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+
+        courses = api.get_courses(credentials)
+        calendarIDs = []
+        for course in courses:
+            if course['courseState'] == "ACTIVE":
+                calendarIDs.append( (course['name'], course['calendarId']) )
+
+        calendar = api.get_calendar(credentials, calendarIDs)
+        print(calendar)
+        userinfo = api.get_user_info(credentials, "me")
+
+        session['credentials'] = api.credentials_to_dict(credentials)
+        results = [] #when user first visits search page, no results are displayed
+        userinfo = userinfo
+        return render_template('calendar.html', calendar = calendar.items(), userinfo = userinfo)
+#process search query
+    @app.route("/query", methods=['POST'])
+    def query():
+        return redirect(url_for('search')) #display results on search page
+
 
     # OAuth2 authentication ====================================================
     @app.route("/auth")

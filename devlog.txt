@@ -53,5 +53,11 @@ kevinL -- 2020-06-07 19:07
   - https://issuetracker.google.com/issues/36882823
 - Switch to using classes for posts/announcements to make it easier to distinguish between them
 
+henryL -- 2020-06-08 11:14
+- Begin work on search functionality
+
 williamL -- 2020-06-08: 13:14
 - added a database for storing hidden classes
+
+kevinL -- 2020-06-08 19:57
+- Styling for individual posts on class page

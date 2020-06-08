@@ -6,21 +6,23 @@
 
 {% block content %}
 
-<h1> {{ course['name'] }} </h1>
-<h3> ID: {{ course['id'] }} </h3>
+<h2 style="font-weight: bold;" class="post"> {{ course['name'] }} </h2>
 
 {% for post in posts %}
   <!-- only courseWork has a due date, not announcement -->
   {% if post.dueDate is defined %}
-    <h3>Assignment</h3>
-    <p> {{ post.updateTime }} </p>
-    <p> Due on {{ post.dueDate }} at {{ post.dueTime }}</p>
-    <p> {{ post.title }} </p>
-    <p> {{ post.description }} </p>
+    <div class="post">
+      <h5 style="font-weight: 700;">Assignment: {{ post.title }} </h6>
+      <h6 style="font-weight: 100;">Posted: {{ post.updateTime }} </h6>
+      <h6 style="font-weight: 100;">Due on: {{ post.dueDate }} at {{ post.dueTime }} </h6>
+      <p> {{ post.description }} </p>
+    </div>
   {% else %}
-    <h3>Announcement</h3>
-    <p> {{ post.updateTime }} </p>
-    <p> {{ post.text }} </p>
+    <div class="post">
+      <h5 style="font-weight: 700;">Announcement</h5>
+      <h6 style="font-weight: 100;">Posted: {{ post.updateTime }} </h6>
+      <p> {{ post.text }} </p>
+    </div>
   {% endif %}
 {% endfor %}
 

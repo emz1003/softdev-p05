@@ -6,8 +6,6 @@
 
 {% block content %}
 
-<<<<<<< HEAD
-
 <h1> {{ course['name'] }} </h1>
 <h3> ID: {{ course['id'] }} </h3>
 <div class="wrapper">
@@ -29,13 +27,12 @@
     </div>
 </div>
 {{results}}
-=======
+
 <div class="post">
   <h2 style="font-weight: bold;"> {{ course['name'] }} </h2>
   <p>You may expand posts by clicking on them.</p>
 </div>
 
->>>>>>> 872e14a00e66fc7ba93c363396a2a8b461143745
 {% for post in posts %}
   <!-- only courseWork has a due date, not announcement -->
   {% if post.dueDate is defined %}

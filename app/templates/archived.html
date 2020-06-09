@@ -7,13 +7,24 @@ Archived/hidden classes
 {% block content %}
 
 <div>
-  <h1>Archived courses</h1>
+  <h1>Archived/hidden courses</h1>
   {% for course in courses %}
     {% if course['courseState'] == "ARCHIVED" %}
       <div>
         <a href="{{ url_for('course', id = course['id'])}}" class="list-group-item list-group-item-action"> {{ course['name'] }} </a>
+        <div class="buttons">
+          <a href="../hide?id={{ course['id']}}"><button class="btn btn-secondary" disabled>Hide</button></a>
+        </div>
       </div>
     {% endif %}
+  {% endfor %}
+</div>
+<div>
+  {% for hidden in hiddenCourses %}
+    <a href="{{ url_for('course', id = hidden['id'])}}" class="list-group-item list-group-item-action"> {{ hidden['name'] }} </a>
+    <div class="buttons">
+      <a href="../hide?id={{ hidden['id']}}"><button class="btn btn-secondary">Unhide</button></a>
+    </div>
   {% endfor %}
 </div>
 

@@ -77,3 +77,6 @@ kevinL -- 2020-06-09 09:41
 - Added hide class button (hide function still pending)
 - Do not have necessary perms to actually leave/join classes :p
 - Show archived courses
+
+kevinL -- 2020-06-09 12:13
+- Allow hiding/unhiding (still rough around the edges but will have to do)

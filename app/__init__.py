@@ -86,7 +86,7 @@ def create_app():
 #process search query
     @app.route("/query", methods=['POST'])
     def query():
-        id = 63014910409
+        id = request.form['id']
         if 'credentials' not in session:
             return render_template("login.html")
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])

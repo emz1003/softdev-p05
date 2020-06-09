@@ -13,14 +13,17 @@
             <div class="default_option">All</div>
             <ul>
               <li>All</li>
+              <li>Text</li>
+              <li>Title</li>
+              <li>Post Date</li>
               <li>Due Date</li>
-              <li>Assignment</li>
             </ul>
         </div>
         <form action="/query" method="POST">
         <div class="search_field">
           <input type="text" class="input" placeholder="Search" name = "keyword">
           <i class="fas fa-search"></i>
+          <input type="hidden" name="id" value="{{course['id']}}" />
         </div>
         </form>
     </div>

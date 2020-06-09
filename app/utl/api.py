@@ -1,5 +1,6 @@
-from googleapiclient.discovery import build
 import datetime
+
+from googleapiclient.discovery import build
 
 # Calendar API =================================================================
 def get_calendar(credentials, courses):

@@ -1,10 +1,10 @@
-from flask import *
 import os
-from utl import api
+from flask import *
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
+from utl import api
 
 dirname = os.path.dirname(__file__) or '.'
 CLIENT_SECRET_FILE =  dirname + '/' + 'client_secret.json'

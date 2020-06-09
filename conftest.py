@@ -1,5 +1,6 @@
-import pytest
 import sys
+import pytest
+
 sys.path.append("app/")
 
 from app import create_app

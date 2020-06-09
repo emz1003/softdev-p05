@@ -71,3 +71,4 @@ kevinL -- 2020-06-08 20:46
     - That breaks the date sorting mechanism for posts (which uses the time when the post was initially made, which could be more than a month back!)
     - Lesser of two evils: use it for classes that don't use scheduled rollout (which is every single one of my classes but AP mando)
 - Some more minor post fixes
+- Click on posts to show more/less details to cut down on space usage

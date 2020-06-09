@@ -85,46 +85,50 @@ def get_posts(credentials, courseid):
 
     resultsWork = gclass.courses().courseWork().list(courseId = courseid).execute()
     courseWork = resultsWork.get('courseWork', [])
-    for work in courseWork:
-        description = ""
-        if 'description' in work:
-            description = work['description']
-        creationTime = str(work['creationTime'][:10]) + " at " + str(work['creationTime'][11:16])
-        updateTime = str(work['updateTime'][:10]) + " at " + str(work['updateTime'][11:16])
-        dueDate = ""
-        dueTime = ""
-        if 'dueDate' in work:
-            month = str(work['dueDate']['month'])
-            if len(month) == 1:
-                month = "0" + month
-            day = str(work['dueDate']['day'])
-            if len(day) == 1:
-                day = "0" + day
-            dueDate = str(work['dueDate']['year']) + '-' + month + '-' + day
-        if 'dueTime' in work:
-            if 'minutes' in work['dueTime']:
-                dueTime = str(work['dueTime']['hours']) + ':' + str(work['dueTime']['minutes'])
-            elif 'hours' in work:
-                dueTime = str(work['dueTime']['hours']) + ':00'
-            else:
-                work['dueTime']['hours'] = 16
-                work['dueTime']['minutes'] = 0
-                dueTime = "16:00"
+    if courseWork != None:
+        for work in courseWork:
+            description = ""
+            if 'description' in work:
+                description = work['description']
+            creationTime = str(work['creationTime'][:10]) + " at " + str(work['creationTime'][11:16])
+            updateTime = str(work['updateTime'][:10]) + " at " + str(work['updateTime'][11:16])
+            dueDate = ""
+            dueTime = ""
+            if 'dueDate' in work:
+                month = str(work['dueDate']['month'])
+                if len(month) == 1:
+                    month = "0" + month
+                day = str(work['dueDate']['day'])
+                if len(day) == 1:
+                    day = "0" + day
+                dueDate = str(work['dueDate']['year']) + '-' + month + '-' + day
+            if 'dueTime' in work:
+                if 'minutes' in work['dueTime']:
+                    dueTime = str(work['dueTime']['hours']) + ':' + str(work['dueTime']['minutes'])
+                elif 'hours' in work:
+                    dueTime = str(work['dueTime']['hours']) + ':00'
+                else:
+                    work['dueTime']['hours'] = 16
+                    work['dueTime']['minutes'] = 0
+                    dueTime = "16:00"
 
-        posts.append(Work(
-            id = work['id'],
-            title = work['title'],
-            description = description,
-            creationTime = creationTime,
-            updateTime = updateTime,
-            dueDate = dueDate,
-            dueTime = dueTime,
-            creatorUserID = work['creatorUserId'],
-            sortTime = work['creationTime']
-        ))
+            posts.append(Work(
+                id = work['id'],
+                title = work['title'],
+                description = description,
+                creationTime = creationTime,
+                updateTime = updateTime,
+                dueDate = dueDate,
+                dueTime = dueTime,
+                creatorUserID = work['creatorUserId'],
+                sortTime = work['creationTime']
+            ))
 
     resultsAnnounce = gclass.courses().announcements().list(courseId = courseid).execute()
     announcements = resultsAnnounce.get('announcements')
+    if announcements == None:
+        return posts
+
     for announcement in announcements:
         creationTime = str(announcement['creationTime'][:10]) + " " + str(announcement['creationTime'][11:16])
         updateTime = str(announcement['updateTime'][:10]) + " " + str(announcement['updateTime'][11:16])

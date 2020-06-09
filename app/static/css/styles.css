@@ -19,6 +19,7 @@ body {
 }
 
 .post {
+  cursor: pointer;
   background-color: white;
   margin-left: 8px;
   margin-top: 8px;
@@ -32,9 +33,13 @@ body {
 
 .post p {
   white-space: pre-line;
-  margin-left: 4px;
-  margin-right: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
   text-indent: 0;
+}
+
+.more {
+  display: none;
 }
 
 .wrapper {

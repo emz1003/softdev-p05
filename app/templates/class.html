@@ -12,15 +12,15 @@
   <!-- only courseWork has a due date, not announcement -->
   {% if post.dueDate is defined %}
     <div class="post">
-      <h5 style="font-weight: 700;">Assignment: {{ post.title }} </h6>
-      <h6 style="font-weight: 100;">Posted: {{ post.updateTime }} </h6>
+      <h5 style="font-weight: 700;">Assignment: {{ post.title }} </h5>
+      <h6 style="font-weight: 100;">Posted: {{ post.creationTime }} </h6>
       <h6 style="font-weight: 100;">Due on: {{ post.dueDate }} at {{ post.dueTime }} </h6>
       <p> {{ post.description }} </p>
     </div>
   {% else %}
     <div class="post">
       <h5 style="font-weight: 700;">Announcement</h5>
-      <h6 style="font-weight: 100;">Posted: {{ post.updateTime }} </h6>
+      <h6 style="font-weight: 100;">Posted: {{ post.creationTime }} </h6>
       <p> {{ post.text }} </p>
     </div>
   {% endif %}

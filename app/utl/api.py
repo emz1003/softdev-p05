@@ -104,8 +104,12 @@ def get_posts(credentials, courseid):
         if 'dueTime' in work:
             if 'minutes' in work['dueTime']:
                 dueTime = str(work['dueTime']['hours']) + ':' + str(work['dueTime']['minutes'])
-            else:
+            elif 'hours' in work:
                 dueTime = str(work['dueTime']['hours']) + ':00'
+            else:
+                work['dueTime']['hours'] = 16
+                work['dueTime']['minutes'] = 0
+                dueTime = "16:00"
 
         posts.append(Work(
             id = work['id'],
@@ -116,7 +120,7 @@ def get_posts(credentials, courseid):
             dueDate = dueDate,
             dueTime = dueTime,
             creatorUserID = work['creatorUserId'],
-            sortTime = work['updateTime']
+            sortTime = work['creationTime']
         ))
 
     resultsAnnounce = gclass.courses().announcements().list(courseId = courseid).execute()
@@ -131,7 +135,7 @@ def get_posts(credentials, courseid):
             creationTime = creationTime,
             updateTime = updateTime,
             creatorUserID = announcement['creatorUserId'],
-            sortTime = announcement['updateTime']
+            sortTime = announcement['creationTime']
         ))
 
     posts.sort(key = lambda x: x.sortTime, reverse = True)

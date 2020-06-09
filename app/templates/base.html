@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %} {% endblock %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<link href="../static/css/styles.css" type="text/css" rel="stylesheet">
-  	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-  	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   	<script>
   		$(document).ready(function(){
   			$(".default_option").click(function(){
@@ -41,6 +40,11 @@
     {% block content %}
     {% endblock %}
   </body>
+<<<<<<< HEAD
+=======
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+>>>>>>> 872e14a00e66fc7ba93c363396a2a8b461143745
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>

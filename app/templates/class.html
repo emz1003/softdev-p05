@@ -6,6 +6,7 @@
 
 {% block content %}
 
+<<<<<<< HEAD
 
 <h1> {{ course['name'] }} </h1>
 <h3> ID: {{ course['id'] }} </h3>
@@ -28,18 +29,32 @@
     </div>
 </div>
 {{results}}
+=======
+<div class="post">
+  <h2 style="font-weight: bold;"> {{ course['name'] }} </h2>
+  <p>You may expand posts by clicking on them.</p>
+</div>
+
+>>>>>>> 872e14a00e66fc7ba93c363396a2a8b461143745
 {% for post in posts %}
   <!-- only courseWork has a due date, not announcement -->
   {% if post.dueDate is defined %}
-    <h3>Assignment</h3>
-    <p> {{ post.updateTime }} </p>
-    <p> Due on {{ post.dueDate }} at {{ post.dueTime }}</p>
-    <p> {{ post.title }} </p>
-    <p> {{ post.description }} </p>
+    <div onclick="togglepost(this)" class="post">
+      <h5 style="font-weight: 700;">Assignment: {{ post.title }} </h5>
+      <h6 style="font-weight: 100;">Posted: {{ post.creationTime }} </h6>
+      <h6 style="font-weight: 100;">Due on: {{ post.dueDate }} at {{ post.dueTime }} </h6>
+      <div class="more">
+        <p> {{ post.description }} </p>
+      </div>
+    </div>
   {% else %}
-    <h3>Announcement</h3>
-    <p> {{ post.updateTime }} </p>
-    <p> {{ post.text }} </p>
+    <div onclick="togglepost(this)" class="post">
+      <h5 style="font-weight: 700;">Announcement</h5>
+      <h6 style="font-weight: 100;">Posted: {{ post.creationTime }} </h6>
+      <div class="more">
+        <p> {{ post.text }} </p>
+      </div>
+    </div>
   {% endif %}
 {% endfor %}
 

@@ -1,10 +1,10 @@
-from flask import *
 import os
-from utl import api
+from flask import *
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
+from utl import api
 
 dirname = os.path.dirname(__file__) or '.'
 CLIENT_SECRET_FILE =  dirname + '/' + 'client_secret.json'
@@ -37,6 +37,7 @@ def create_app():
         userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
+
 
         return render_template("classes.html", courses = courses, userinfo = userinfo)
 
@@ -137,6 +138,7 @@ def create_app():
         return redirect(url_for('home'))
 
     # ==========================================================================
+
 
     return app
 

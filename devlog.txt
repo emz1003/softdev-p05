@@ -52,3 +52,23 @@ kevinL -- 2020-06-07 19:07
 - Jeez the Classroom API is lacking - there is no way of retrieving/making comments off posts, private or otherwise!
   - https://issuetracker.google.com/issues/36882823
 - Switch to using classes for posts/announcements to make it easier to distinguish between them
+
+henryL -- 2020-06-08 11:14
+- Begin work on search functionality
+
+williamL -- 2020-06-08: 13:14
+- added a database for storing hidden classes
+
+kevinL -- 2020-06-08 19:57
+- Styling for individual posts on class page
+
+kevinL -- 2020-06-08 20:46
+- Noting a bunch of "unfixable" stuff due to the API:
+  - The timestamps are always 4 hours behind. I'm not sure if there's a simple way to fix
+    this considering it's direct from the API...
+  - Some classes use a "scheduled" work rollout feature (case in point, my AP mando class).
+    - There's supposed to be a corresponding "scheduledTime" key in those cases, but it's always absent! API why.
+    - That breaks the date sorting mechanism for posts (which uses the time when the post was initially made, which could be more than a month back!)
+    - Lesser of two evils: use it for classes that don't use scheduled rollout (which is every single one of my classes but AP mando)
+- Some more minor post fixes
+- Click on posts to show more/less details to cut down on space usage

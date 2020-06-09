@@ -56,10 +56,14 @@ def create_app():
         course = api.get_course(credentials, id)
         posts = api.get_posts(credentials, id)
         userinfo = api.get_user_info(credentials, "me")
+        if (len(posts) == 0):
+            error = " No assignments found"
+        else:
+            error = " You may expand posts by clicking on them."
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("class.html", course = course, posts = posts, userinfo = userinfo, id = id)
+        return render_template("class.html", course = course, posts = posts, userinfo = userinfo, id = id, error = error)
 
     @app.route("/calendar")
     def calendar():
@@ -132,19 +136,26 @@ def create_app():
         userinfo = api.get_user_info(credentials, "me")
         session['credentials'] = api.credentials_to_dict(credentials)
         query = request.form['keyword']
-        #initialize dog list
-        dog = []
-        #Go through posts to see if query is in either a work or announcment
-        for post in posts:
-            if (type(post).__name__ == 'Work'):
-                text = post.description
-                if (text.find(query) > 0):
-                    dog.append(post)
-            if (type(post).__name__ == 'Announcement'):
-                text = post.text
-                if (text.find(query) > 0):
-                    dog.append(post)
-        return render_template("class.html", course = course, posts = dog, userinfo = userinfo, id = id)
+        if (query == ""):
+            dog = []
+            error = " No assignments found"
+        else:
+            query = query.lower()
+            #initialize dog list
+            dog = []
+            #Go through posts to see if query is in either a work or announcment
+            for post in posts:
+                if (type(post).__name__ == 'Work'):
+                    text = post.description
+                    if (post.description.lower().find(query) > 0 or post.title.lower().find(query) > 0):
+                        dog.append(post)
+                    text = post.title
+                if (type(post).__name__ == 'Announcement'):
+                    text = post.text
+                    if (text.lower().find(query) > 0):
+                        dog.append(post)
+            error = "You may expand posts by clicking on them."
+        return render_template("class.html", course = course, error = error, posts = dog, userinfo = userinfo, id = id)
 
     # OAuth2 authentication ====================================================
     @app.route("/auth")

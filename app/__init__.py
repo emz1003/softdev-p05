@@ -54,7 +54,7 @@ def create_app():
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("class.html", course = course, posts = posts, userinfo = userinfo)
+        return render_template("class.html", course = course, posts = posts, userinfo = userinfo, id = id)
 
     @app.route("/calendar")
     def calendar():
@@ -82,44 +82,32 @@ def create_app():
         session.pop('state')
         session.pop('credentials')
         return redirect(url_for('home'))
-        #search page with search bar
-    @app.route("/search")
-    def search():
-        if 'credentials' not in session:
-            return render_template("login.html")
 
-        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
-
-        courses = api.get_courses(credentials)
-        calendarIDs = []
-        for course in courses:
-            if course['courseState'] == "ACTIVE":
-                calendarIDs.append( (course['name'], course['calendarId']) )
-
-        calendar = api.get_calendar(credentials, calendarIDs)
-        print(calendar)
-        userinfo = api.get_user_info(credentials, "me")
-
-        session['credentials'] = api.credentials_to_dict(credentials)
-        results = [] #when user first visits search page, no results are displayed
-        userinfo = userinfo
-        y = calendar.items()
-        if (request.args): #if user has made a search
-            if ('query' in request.args):
-                query = request.args['query'] #search keyword
-                for x in y:
-                    if (query in x):
-                        results = x
-            #print(results)
-        results = query
-
-        return render_template('calendar.html', results = results, userinfo = userinfo)
 #process search query
     @app.route("/query", methods=['POST'])
     def query():
-          query = request.form['keyword']
-          return redirect(url_for('search', query=query)) #display results on search page
-
+        id = 63014910409
+        if 'credentials' not in session:
+            return render_template("login.html")
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+        course = api.get_course(credentials, id)
+        posts = api.get_posts(credentials, id)
+        userinfo = api.get_user_info(credentials, "me")
+        session['credentials'] = api.credentials_to_dict(credentials)
+        query = request.form['keyword']
+        #initialize dog list
+        dog = []
+        #Go through posts to see if query is in either a work or announcment
+        for post in posts:
+            if (type(post).__name__ == 'Work'):
+                text = post.description
+                if (text.find(query) > 0):
+                    dog.append(post)
+            if (type(post).__name__ == 'Announcement'):
+                text = post.text
+                if (text.find(query) > 0):
+                    dog.append(post)
+        return render_template("class.html", course = course, posts = dog, userinfo = userinfo, id = id)
 
     # OAuth2 authentication ====================================================
     @app.route("/auth")

@@ -5,6 +5,27 @@
 {% endblock %}
 
 {% block content %}
+<h1> {{ course['name'] }} </h1>
+<h3> ID: {{ course['id'] }} </h3>
+<div class="wrapper">
+    <div class="search_box">
+        <div class="dropdown">
+            <div class="default_option">All</div>
+            <ul>
+              <li>All</li>
+              <li>Due Date</li>
+              <li>Assignment</li>
+            </ul>
+        </div>
+        <form action="/query" method="POST">
+        <div class="search_field">
+          <input type="text" class="input" placeholder="Search" name = "keyword">
+          <i class="fas fa-search"></i>
+        </div>
+        </form>
+    </div>
+</div>
+{{results}}
 
 <div class="post">
   <h2 style="font-weight: bold;"> {{ course['name'] }} </h2>
@@ -32,5 +53,6 @@
     </div>
   {% endif %}
 {% endfor %}
+{{dog}}
 
 {% endblock %}

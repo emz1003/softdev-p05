@@ -66,8 +66,8 @@ body {
 
 .wrapper {
   position: absolute;
-  top: 16%;
-  left: 50%;
+  top: 14%;
+  left: 75%;
   transform: translate(-50%,-50%);
 }
 

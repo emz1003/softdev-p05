@@ -70,12 +70,27 @@ def create_app():
                 calendarIDs.append( (course['name'], course['calendarId']) )
 
         calendar = api.get_calendar(credentials, calendarIDs)
-        print(calendar)
         userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
         return render_template("calendar.html", calendar = calendar.items(), userinfo = userinfo)
+
+    @app.route("/archived")
+    def archived():
+        if 'credentials' not in session:
+            return render_template("login.html")
+
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+
+        courses = api.get_courses(credentials)
+        userinfo = api.get_user_info(credentials, "me")
+
+        session['credentials'] = api.credentials_to_dict(credentials)
+
+
+        return render_template("archived.html", courses = courses, userinfo = userinfo)
+
 
     @app.route("/logout")
     def logout():

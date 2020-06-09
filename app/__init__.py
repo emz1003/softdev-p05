@@ -81,43 +81,28 @@ def create_app():
         session.pop('state')
         session.pop('credentials')
         return redirect(url_for('home'))
-        #search page with search bar
-    @app.route("/search")
-    def search():
-        if 'credentials' not in session:
-            return render_template("login.html")
 
-        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
-
-        courses = api.get_courses(credentials)
-        calendarIDs = []
-        for course in courses:
-            if course['courseState'] == "ACTIVE":
-                calendarIDs.append( (course['name'], course['calendarId']) )
-
-        calendar = api.get_calendar(credentials, calendarIDs)
-        print(calendar)
-        userinfo = api.get_user_info(credentials, "me")
-
-        session['credentials'] = api.credentials_to_dict(credentials)
-        results = [] #when user first visits search page, no results are displayed
-        userinfo = userinfo
-        y = calendar.items()
-        if (request.args): #if user has made a search
-            if ('query' in request.args):
-                query = request.args['query'] #search keyword
-                for x in y:
-                    if (query in x):
-                        results = x
-            #print(results)
-        results = query
-
-        return render_template('calendar.html', results = results, userinfo = userinfo)
 #process search query
     @app.route("/query", methods=['POST'])
     def query():
           query = request.form['keyword']
-          return redirect(url_for('search', query=query)) #display results on search page
+          if 'credentials' not in session:
+              return render_template("login.html")
+
+          credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+
+          course = api.get_course(credentials, request.form[id])
+          posts = api.get_posts(credentials, request.form[id])
+          userinfo = api.get_user_info(credentials, "me")
+
+          session['credentials'] = api.credentials_to_dict(credentials)
+
+          if (request.args): #if user has made a search
+              if ('query' in request.args):
+                  query = request.args['query'] #search keyword
+                  for post in posts:
+                      results = posts
+          return render_template('class.html', course = course, results = posts, userinfo = userinfo)
 
 
     # OAuth2 authentication ====================================================

@@ -1,11 +1,11 @@
 import os
 from flask import *
+from datetime import datetime
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 from utl import api
-from utl import db
 
 dirname = os.path.dirname(__file__) or '.'
 CLIENT_SECRET_FILE =  dirname + '/' + 'client_secret.json'
@@ -34,15 +34,11 @@ def create_app():
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
-        userinfo = api.get_user_info(credentials, "me")
-        hiddencourses = db.get_hidden_classes(userinfo['id'])
         courses = api.get_courses(credentials)
-        for i in reversed(range(len(courses))):
-            if hiddencourses.find(courses[i]['id']) != -1 and courses[i]['courseState'] != "ARCHIVED":
-                print("\n\n\n\n\n\n")
-                courses.pop(i)
+        userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
+
 
         return render_template("classes.html", courses = courses, userinfo = userinfo)
 
@@ -64,6 +60,44 @@ def create_app():
         session['credentials'] = api.credentials_to_dict(credentials)
 
         return render_template("class.html", course = course, posts = posts, userinfo = userinfo, id = id, error = error)
+    @app.route("/todo")
+    def todo():
+        if 'credentials' not in session:
+            return render_template("login.html")
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+        courses = api.get_courses(credentials)
+        userinfo = api.get_user_info(credentials, "me")
+        session['credentials'] = api.credentials_to_dict(credentials)
+        masterAssign = []
+        #compare times, if times is later then print them to to do list
+        for course in courses:
+            if (course['courseState'] == "ACTIVE"):
+                #thing include name, id, and assignemnt for each class
+                thing = []
+                something = False
+                name = course['name']
+                #assignments include all the assignmnets for a specific class that havnt been due yet
+                assignments = []
+                id = course['id']
+                posts = api.get_posts(credentials, id)
+                today = (datetime.now())
+                #Go through posts to see if query is in either a work or announcment
+                for post in posts:
+                    if (type(post).__name__ == 'Work'):
+                        if (post.dueDate != ''):
+                            datetime_object = datetime.strptime(post.dueDate, '%Y-%m-%d')
+                            if (datetime_object >= today):
+                                assignments.append(post)
+                                something = True
+                thing.append("\t"+name)
+                if (something):
+                    thing.append(assignments)
+                    masterAssign.append(thing)
+                else:
+                    thing.append('none')
+                    masterAssign.append(thing)
+        return render_template("todo.html", userinfo = userinfo, masterAssign = masterAssign)
+
 
     @app.route("/calendar")
     def calendar():
@@ -92,31 +126,14 @@ def create_app():
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
-        userinfo = api.get_user_info(credentials, "me")
-        hiddencourses = db.get_hidden_classes(userinfo['id'])
         courses = api.get_courses(credentials)
-        hidden = []
-        for course in courses:
-            if hiddencourses.find(course['id']) != -1 and course['courseState'] != "ARCHIVED":
-                hidden.append(course)
+        userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("archived.html", courses = courses, hiddenCourses = hidden, userinfo = userinfo)
 
-    @app.route("/hide")
-    def hide():
-        if 'credentials' not in session:
-            return render_template("login.html")
+        return render_template("archived.html", courses = courses, userinfo = userinfo)
 
-        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
-
-        userinfo = api.get_user_info(credentials, "me")
-        userid = userinfo['id']
-        classid = request.args.get('id')
-        db.togglehide(userid, classid)
-
-        return redirect(url_for('archived'))
 
     @app.route("/logout")
     def logout():
@@ -124,7 +141,7 @@ def create_app():
         session.pop('credentials')
         return redirect(url_for('home'))
 
-    #process search query
+#process search query
     @app.route("/query", methods=['POST'])
     def query():
         id = request.form['id']
@@ -154,7 +171,9 @@ def create_app():
                     text = post.text
                     if (text.lower().find(query) > 0):
                         dog.append(post)
-            error = "You may expand posts by clicking on them."
+            if (len(dog) == 0):
+                error = " No assignments found"
+            else: error = "You may expand posts by clicking on them."
         return render_template("class.html", course = course, error = error, posts = dog, userinfo = userinfo, id = id)
 
     # OAuth2 authentication ====================================================

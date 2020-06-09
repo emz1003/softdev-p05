@@ -48,6 +48,10 @@ kevinL -- 2020-06-06 17:43
 - Show assignments and announcements on course page
 - Should probably just use classes rather than dealing with multiple dictionaries at once
 
+henryL -- 2020-06-06 18:43
+- Added dropdown search
+- Need to figure out how to look using specific keywords
+
 kevinL -- 2020-06-07 19:07
 - Jeez the Classroom API is lacking - there is no way of retrieving/making comments off posts, private or otherwise!
   - https://issuetracker.google.com/issues/36882823
@@ -55,6 +59,7 @@ kevinL -- 2020-06-07 19:07
 
 henryL -- 2020-06-08 11:14
 - Begin work on search functionality
+- Found a nice dropdown search box
 
 williamL -- 2020-06-08: 13:14
 - added a database for storing hidden classes
@@ -78,9 +83,23 @@ kevinL -- 2020-06-09 09:41
 - Do not have necessary perms to actually leave/join classes :p
 - Show archived courses
 
+henryL -- 2020-06-09 09:42
+- Text and description now can be searched
+
+henryL -- 2020-06-09 11:42
+- Title can now can be searched
+- Figured out how to store ids
+- Search function complete
+
 henryL -- 2020-06-09 12:38
 - Edge case where there are no assignments
-- Search function complete
+- Started work on to do list
 
 kevinL -- 2020-06-09 12:13
 - Allow hiding/unhiding (still rough around the edges but will have to do)
+
+henryL -- 2020-06-09 1:28
+- Found out how to only have active courses showing
+- Worked on times and comparing times stamps
+- Format is good now
+- Should make to do list more accurate based on time

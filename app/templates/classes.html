@@ -6,10 +6,15 @@ Classes
 
 {% block content %}
 
-<div class="list-group">
+<div>
   {% for course in courses %}
     {% if course['courseState'] == "ACTIVE" %}
+      <div>
       <a href="{{ url_for('course', id = course['id'])}}" class="list-group-item list-group-item-action"> {{ course['name'] }} </a>
+      <div class="buttons">
+        <button classid={{ course['id'] }} onclick="confirmbox(this)" class="btn btn-secondary">Hide</button>
+      </div>
+      </div>
     {% endif %}
   {% endfor %}
 </div>

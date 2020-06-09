@@ -2,6 +2,13 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 4px;
   margin-right: 4px;
 }
+
+button {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 * {
@@ -16,6 +23,21 @@ h1, h2, h3, h4, h5, h6 {
 body {
   /* background: #e4eefa; */
   background-color: #f2f2f2;
+}
+
+.list-group-item {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+  float: left;
+  width: 75%;
+}
+
+.buttons {
+  position: relative;
+  top: 4px;
+  float: right;
+  width: 20%;
 }
 
 .post {

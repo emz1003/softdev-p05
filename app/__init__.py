@@ -86,7 +86,7 @@ def create_app():
                     if (type(post).__name__ == 'Work'):
                         if (post.dueDate != ''):
                             datetime_object = datetime.strptime(post.dueDate, '%Y-%m-%d')
-                            if (datetime_object > today):
+                            if (datetime_object >= today):
                                 assignments.append(post)
                                 something = True
                 thing.append("\t"+name)

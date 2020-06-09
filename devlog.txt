@@ -106,7 +106,11 @@ henryL -- 2020-06-09 1:28
 
 williamL - 2020-06-09 16:56
 - Figured out how to import google calendar
-    - For some reason, it works on the testing page but not when I pass the
-      link through python and jinja. I even double checked and the link is
-      the same for both. The only difference is that the test link is a direct
-      link whereas the actual page uses a variabel to store the link
+- For some reason, it works on the testing page but not when I pass the
+  link through python and jinja. I even double checked and the link is
+  the same for both. The only difference is that the test link is a direct
+  link whereas the actual page uses a variabel to store the link
+
+henryL -- 2020-06-09 18:48
+- To Do list is more accurate now, and things due on the same day that
+ have already passed will not show up in the to do list

@@ -21,7 +21,7 @@
 
 **Description**
 
-Our website aims to be an alternative portal to Google Classroom with added features/quality of life improvements, such as a better integrated calendar, the ability to hide classes, searching for posts, etc. Everything done on this site is reflected on Google Classroom.
+Our website aims to be an alternative portal to Google Classroom with added features/quality of life improvements, such as a better integrated calendar, the ability to hide classes, searching for posts, etc. However, due to lack of permissions, everything is strictly *read-only*.
 
 **API(s) used**
 - [Google Classroom API](https://developers.google.com/classroom/reference/rest)

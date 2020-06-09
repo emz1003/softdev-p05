@@ -61,6 +61,7 @@ def get_user_info(credentials, userid):
     results = gclass.userProfiles().get(userId = userid).execute()
 
     dict = {}
+    dict['id'] = results['id']
     dict['name'] = results['name']['fullName']
 
     return dict

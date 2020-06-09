@@ -6,6 +6,7 @@ import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 from utl import api
+from utl import db
 
 dirname = os.path.dirname(__file__) or '.'
 CLIENT_SECRET_FILE =  dirname + '/' + 'client_secret.json'
@@ -34,11 +35,15 @@ def create_app():
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
-        courses = api.get_courses(credentials)
         userinfo = api.get_user_info(credentials, "me")
+        hiddencourses = db.get_hidden_classes(userinfo['id'])
+        courses = api.get_courses(credentials)
+        for i in reversed(range(len(courses))):
+            if hiddencourses.find(courses[i]['id']) != -1 and courses[i]['courseState'] != "ARCHIVED":
+                print("\n\n\n\n\n\n")
+                courses.pop(i)
 
         session['credentials'] = api.credentials_to_dict(credentials)
-
 
         return render_template("classes.html", courses = courses, userinfo = userinfo)
 
@@ -116,14 +121,31 @@ def create_app():
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
-        courses = api.get_courses(credentials)
         userinfo = api.get_user_info(credentials, "me")
+        hiddencourses = db.get_hidden_classes(userinfo['id'])
+        courses = api.get_courses(credentials)
+        hidden = []
+        for course in courses:
+            if hiddencourses.find(course['id']) != -1 and course['courseState'] != "ARCHIVED":
+                hidden.append(course)
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
+        return render_template("archived.html", courses = courses, hiddenCourses = hidden, userinfo = userinfo)
 
-        return render_template("archived.html", courses = courses, userinfo = userinfo)
+    @app.route("/hide")
+    def hide():
+        if 'credentials' not in session:
+            return render_template("login.html")
 
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+
+        userinfo = api.get_user_info(credentials, "me")
+        userid = userinfo['id']
+        classid = request.args.get('id')
+        db.togglehide(userid, classid)
+
+        return redirect(url_for('archived'))
 
     @app.route("/logout")
     def logout():
@@ -131,7 +153,7 @@ def create_app():
         session.pop('credentials')
         return redirect(url_for('home'))
 
-#process search query
+    #process search query
     @app.route("/query", methods=['POST'])
     def query():
         id = request.form['id']

@@ -1,5 +1,6 @@
 import os
 from flask import *
+from datetime import datetime
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
@@ -59,6 +60,34 @@ def create_app():
         session['credentials'] = api.credentials_to_dict(credentials)
 
         return render_template("class.html", course = course, posts = posts, userinfo = userinfo, id = id, error = error)
+    @app.route("/todo")
+    def todo():
+        if 'credentials' not in session:
+            return render_template("login.html")
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+        courses = api.get_courses(credentials)
+        userinfo = api.get_user_info(credentials, "me")
+        session['credentials'] = api.credentials_to_dict(credentials)
+        masterAssign = []
+        #compare times, if times is later then print them to to do list
+        for course in courses:
+            if (course['courseState'] == "ACTIVE)"):
+                assignments = 0
+                id = course['id']
+                posts = api.get_posts(credentials, id)
+                today = (datetime.now())
+                #Go through posts to see if query is in either a work or announcment
+                for post in posts:
+                    if (type(post).__name__ == 'Work'):
+                        assignments+= 1
+                masterAssign.append(assignments)
+                masterAssign.append(course['id'])
+            else:
+                masterAssign.append('hi')
+
+        return render_template("todo.html", courses = courses, userinfo = userinfo, masterAssign = masterAssign)
+
+
 
     @app.route("/calendar")
     def calendar():
@@ -132,7 +161,9 @@ def create_app():
                     text = post.text
                     if (text.lower().find(query) > 0):
                         dog.append(post)
-            error = "You may expand posts by clicking on them."
+            if (len(dog) == 0):
+                error = " No assignments found"
+            else: error = "You may expand posts by clicking on them."
         return render_template("class.html", course = course, error = error, posts = dog, userinfo = userinfo, id = id)
 
     # OAuth2 authentication ====================================================

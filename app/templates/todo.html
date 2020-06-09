@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+To Do
+{% endblock %}
+
+{% block content %}
+<h1> To Do List</h1>
+<div>
+  {% for course in courses %}
+    {% if course['courseState'] == "ACTIVE" %}
+    <br>
+      <h4>{{ course['id'] }}</h4>
+      <h4>{{ course['name'] }}</h4>
+    {% endif %}
+  {% endfor %}
+</div>
+{{ masterAssign}}
+
+{% endblock %}

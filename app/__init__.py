@@ -107,6 +107,7 @@ def create_app():
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
         courses = api.get_courses(credentials)
+
         calendarIDs = []
         for course in courses:
             if course['courseState'] == "ACTIVE":
@@ -117,7 +118,16 @@ def create_app():
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("calendar.html", calendar = calendar.items(), userinfo = userinfo)
+        calendarlink = "https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;"
+
+        for calendarID in calendarIDs:
+            calendarlink += ('src=' + calendarID[1] + '&amp;')
+
+        print(calendarlink)
+
+
+
+        return render_template("calendar.html", calendar = calendar.items(), userinfo = userinfo, clink = calendarlink)
 
     @app.route("/archived")
     def archived():

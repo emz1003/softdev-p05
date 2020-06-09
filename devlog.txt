@@ -62,7 +62,7 @@ henryL -- 2020-06-08 11:14
 - Found a nice dropdown search box
 
 williamL -- 2020-06-08: 13:14
-- added a database for storing hidden classes
+- Added a database for storing hidden classes
 
 kevinL -- 2020-06-08 19:57
 - Styling for individual posts on class page
@@ -103,3 +103,10 @@ henryL -- 2020-06-09 1:28
 - Worked on times and comparing times stamps
 - Format is good now
 - Should make to do list more accurate based on time
+
+williamL - 2020-06-09 16:56
+- Figured out how to import google calendar
+    - For some reason, it works on the testing page but not when I pass the
+      link through python and jinja. I even double checked and the link is
+      the same for both. The only difference is that the test link is a direct
+      link whereas the actual page uses a variabel to store the link

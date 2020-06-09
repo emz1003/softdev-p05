@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block content %}
-
 <h1> {{ course['name'] }} </h1>
 <h3> ID: {{ course['id'] }} </h3>
 <div class="wrapper">
@@ -20,7 +19,7 @@
         </div>
         <form action="/query" method="POST">
         <div class="search_field">
-          <input type="text" class="input" placeholder="Search" name = "keyword" id = course['id']>
+          <input type="text" class="input" placeholder="Search" name = "keyword">
           <i class="fas fa-search"></i>
         </div>
         </form>
@@ -54,5 +53,6 @@
     </div>
   {% endif %}
 {% endfor %}
+{{dog}}
 
 {% endblock %}

@@ -54,7 +54,7 @@ def create_app():
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-        return render_template("class.html", course = course, posts = posts, userinfo = userinfo)
+        return render_template("class.html", course = course, posts = posts, userinfo = userinfo, id = id)
 
     @app.route("/calendar")
     def calendar():
@@ -86,25 +86,28 @@ def create_app():
 #process search query
     @app.route("/query", methods=['POST'])
     def query():
-          query = request.form['keyword']
-          if 'credentials' not in session:
-              return render_template("login.html")
-
-          credentials = google.oauth2.credentials.Credentials(**session['credentials'])
-
-          course = api.get_course(credentials, request.form[id])
-          posts = api.get_posts(credentials, request.form[id])
-          userinfo = api.get_user_info(credentials, "me")
-
-          session['credentials'] = api.credentials_to_dict(credentials)
-
-          if (request.args): #if user has made a search
-              if ('query' in request.args):
-                  query = request.args['query'] #search keyword
-                  for post in posts:
-                      results = posts
-          return render_template('class.html', course = course, results = posts, userinfo = userinfo)
-
+        id = 63014910409
+        if 'credentials' not in session:
+            return render_template("login.html")
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+        course = api.get_course(credentials, id)
+        posts = api.get_posts(credentials, id)
+        userinfo = api.get_user_info(credentials, "me")
+        session['credentials'] = api.credentials_to_dict(credentials)
+        query = request.form['keyword']
+        #initialize dog list
+        dog = []
+        #Go through posts to see if query is in either a work or announcment
+        for post in posts:
+            if (type(post).__name__ == 'Work'):
+                text = post.description
+                if (text.find(query) > 0):
+                    dog.append(post)
+            if (type(post).__name__ == 'Announcement'):
+                text = post.text
+                if (text.find(query) > 0):
+                    dog.append(post)
+        return render_template("class.html", course = course, posts = dog, userinfo = userinfo, id = id)
 
     # OAuth2 authentication ====================================================
     @app.route("/auth")

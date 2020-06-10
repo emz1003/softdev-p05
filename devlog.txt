@@ -114,3 +114,10 @@ williamL - 2020-06-09 16:56
 henryL -- 2020-06-09 18:48
 - To Do list is more accurate now, and things due on the same day that
  have already passed will not show up in the to do list
+
+kevinL -- 2020-06-09 22:14
+- Design doc changes
+  - Site map more closely resembles current routes
+  - (Sadly) have to cut down the stuff that requires "write" access to the APIs
+    - Those perms cannot be obtained without our app being verified by Google.
+  - Update description accordingly

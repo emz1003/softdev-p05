@@ -42,6 +42,20 @@
       <h5 style="font-weight: 700;">Assignment: {{ post.title }} </h5>
       <h6 style="font-weight: 100;">Posted: {{ post.creationTime }} </h6>
       <h6 style="font-weight: 100;">Due on: {{ post.dueDate }} at {{ post.dueTime }} </h6>
+      <h5>Attachments:</h5>
+      {% if post.link != "" %}
+        <a href="{{post.link['url']}}">
+          <img src="{{ post.link['thumbnailUrl'] }}">
+          {{ post.link['title'] }}
+        </a>
+      {% endif %}
+      {% if post.ytvideo != "" %}
+        <a href="{{post.ytvideo['alternateLink']}}">
+          <img src="{{ post.ytvideo['thumbnailUrl'] }}">
+          {{ post.ytvideo['title'] }}
+        </a>
+        <br><br>
+      {% endif %}
       <div class="more">
         <p> {{ post.description }} </p>
       </div>
@@ -50,6 +64,20 @@
     <div onclick="togglepost(this)" class="post">
       <h5 style="font-weight: 700;">Announcement</h5>
       <h6 style="font-weight: 100;">Posted: {{ post.creationTime }} </h6>
+      <h5>Attachments:</h5>
+      {% if post.link != "" %}
+        <a href="{{post.link['url']}}">
+          <img src="{{ post.link['thumbnailUrl'] }}">
+          {{ post.link['title'] }}
+        </a>
+      {% endif %}
+      {% if post.ytvideo != "" %}
+        <a href="{{post.ytvideo['alternateLink']}}">
+          <img src="{{ post.ytvideo['thumbnailUrl'] }}">
+          {{ post.ytvideo['title'] }}
+        </a>
+        <br><br>
+      {% endif %}
       <div class="more">
         <p> {{ post.text }} </p>
       </div>

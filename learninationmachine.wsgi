@@ -12,5 +12,6 @@ from learninationmachine import app as _application
 def application(req_environ, start_response):
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = '1'
+    os.environ['PASSPHRASE'] = '42069'
 
     return _application(req_environ, start_response)

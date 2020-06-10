@@ -44,15 +44,21 @@
       <h6 style="font-weight: 100;">Due on: {{ post.dueDate }} at {{ post.dueTime }} </h6>
       <h5>Attachments:</h5>
       {% if post.link != "" %}
-        <a href="{{post.link['url']}}">
+        <a href="{{ post.link['url'] }}">
           <img src="{{ post.link['thumbnailUrl'] }}">
           {{ post.link['title'] }}
         </a>
       {% endif %}
       {% if post.ytvideo != "" %}
-        <a href="{{post.ytvideo['alternateLink']}}">
+        <a href="{{ post.ytvideo['alternateLink'] }}">
           <img src="{{ post.ytvideo['thumbnailUrl'] }}">
           {{ post.ytvideo['title'] }}
+        </a>
+      {% endif %}
+      {% if post.driveFile != "" %}
+        <a href="{{ post.driveFile['alternateLink'] }}">
+          <img src="{{ post.driveFile['thumbnailUrl'] }}">
+          {{ post.driveFile['title'] }}
         </a>
         <br><br>
       {% endif %}
@@ -66,15 +72,21 @@
       <h6 style="font-weight: 100;">Posted: {{ post.creationTime }} </h6>
       <h5>Attachments:</h5>
       {% if post.link != "" %}
-        <a href="{{post.link['url']}}">
+        <a href="{{ post.link['url'] }}">
           <img src="{{ post.link['thumbnailUrl'] }}">
           {{ post.link['title'] }}
         </a>
       {% endif %}
       {% if post.ytvideo != "" %}
-        <a href="{{post.ytvideo['alternateLink']}}">
+        <a href="{{ post.ytvideo['alternateLink']}}">
           <img src="{{ post.ytvideo['thumbnailUrl'] }}">
           {{ post.ytvideo['title'] }}
+        </a>
+      {% endif %}
+      {% if post.driveFile != "" %}
+        <a href="{{ post.driveFile['alternateLink'] }}">
+          <img src="{{ post.driveFile['thumbnailUrl'] }}">
+          {{ post.driveFile['title'] }}
         </a>
         <br><br>
       {% endif %}

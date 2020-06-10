@@ -28,12 +28,13 @@ def get_calendar(credentials, courses):
     return dict
 # ==============================================================================
 class Work:
-    def __init__(self, id, title, description, link, ytvideo, creationTime, updateTime, dueDate, dueTime, creatorUserID, sortTime):
+    def __init__(self, id, title, description, link, ytvideo, driveFile, creationTime, updateTime, dueDate, dueTime, creatorUserID, sortTime):
         self.id = id
         self.title = title
         self.description = description
         self.link = link
         self.ytvideo = ytvideo
+        self.driveFile = driveFile
         self.creationTime = creationTime
         self.updateTime = updateTime
         self.dueDate = dueDate
@@ -42,11 +43,12 @@ class Work:
         self.sortTime = sortTime
 
 class Announcement:
-    def __init__(self, id, text, link, ytvideo, creationTime, updateTime, creatorUserID, sortTime):
+    def __init__(self, id, text, link, ytvideo, driveFile, creationTime, updateTime, creatorUserID, sortTime):
         self.id = id
         self.text = text
         self.link = link
         self.ytvideo = ytvideo
+        self.driveFile = driveFile
         self.creationTime = creationTime
         self.updateTime = updateTime
         self.creatorUserID = creatorUserID
@@ -98,11 +100,14 @@ def get_posts(credentials, courseid):
                 description = work['description']
             link = ""
             ytvideo = ""
+            driveFile = ""
             if 'materials' in work:
                 if 'link' in work['materials'][0]:
                     link = work['materials'][0]['link']
                 if 'youtubeVideo' in work['materials'][0]:
                     ytvideo = work['materials'][0]['youtubeVideo']
+                if 'driveFile' in work['materials'][0]:
+                    driveFile = work['materials'][0]['driveFile']['driveFile']
 
             creationTime = str(work['creationTime'][:10]) + " at " + str(work['creationTime'][11:16])
             updateTime = str(work['updateTime'][:10]) + " at " + str(work['updateTime'][11:16])
@@ -132,6 +137,7 @@ def get_posts(credentials, courseid):
                 description = description,
                 link = link,
                 ytvideo = ytvideo,
+                driveFile = driveFile,
                 creationTime = creationTime,
                 updateTime = updateTime,
                 dueDate = dueDate,
@@ -148,13 +154,14 @@ def get_posts(credentials, courseid):
     for announcement in announcements:
         link = ""
         ytvideo = ""
+        driveFile = ""
         if 'materials' in announcement:
             if 'link' in announcement['materials'][0]:
-                print("xdddddddddd")
-                print(announcement['materials'][0]['link'])
                 link = announcement['materials'][0]['link']
             if 'youtubeVideo' in announcement['materials'][0]:
                 ytvideo = announcement['materials'][0]['youtubeVideo']
+            if 'driveFile' in announcement['materials'][0]:
+                driveFile = announcement['materials'][0]['driveFile']['driveFile']
         creationTime = str(announcement['creationTime'][:10]) + " " + str(announcement['creationTime'][11:16])
         updateTime = str(announcement['updateTime'][:10]) + " " + str(announcement['updateTime'][11:16])
 
@@ -163,6 +170,7 @@ def get_posts(credentials, courseid):
             text = announcement['text'],
             link = link,
             ytvideo = ytvideo,
+            driveFile = driveFile,
             creationTime = creationTime,
             updateTime = updateTime,
             creatorUserID = announcement['creatorUserId'],

@@ -121,3 +121,9 @@ kevinL -- 2020-06-09 22:14
   - (Sadly) have to cut down the stuff that requires "write" access to the APIs
     - Those perms cannot be obtained without our app being verified by Google.
   - Update description accordingly
+
+kevinL -- 2020-06-10 10:23
+- Successfully deployed to Flask
+  - Biggest note: os.environ variables should be set in .wsgi file, not in __init__.py
+  - Needed to do this to get the OAuth2 mechanism working, otherwise it screams at me for HTTPS
+  - http://poggers-cc.ddns.net

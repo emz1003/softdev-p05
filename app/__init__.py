@@ -55,7 +55,7 @@ def create_app():
             return render_template("login.html")
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
-        
+
         course = api.get_course(credentials, id)
         posts = api.get_posts(credentials, id)
         userinfo = api.get_user_info(credentials, "me")
@@ -256,9 +256,10 @@ def create_app():
 
     return app
 
+app = create_app()
+
 if __name__ == "__main__":
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
     os.environ['OAUTHLIB_RELAX_TOKEN_SCOPE'] = "1"
-    app = create_app()
     app.debug = True
     app.run()

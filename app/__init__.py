@@ -6,6 +6,7 @@ import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 from utl import api
+from utl import db
 
 dirname = os.path.dirname(__file__) or '.'
 CLIENT_SECRET_FILE =  dirname + '/' + 'client_secret.json'
@@ -34,13 +35,19 @@ def create_app():
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
+        userinfo = api.get_user_info(credentials, "me")
+        hiddencourses = db.get_hidden_classes(userinfo['id'])
         courses = api.get_courses(credentials)
+        for i in reversed(range(len(courses))):
+            if hiddencourses.find(courses[i]['id']) != -1 and courses[i]['courseState'] != "ARCHIVED":
+                courses.pop(i)
+
         userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
-
         return render_template("classes.html", courses = courses, userinfo = userinfo)
+
 
     @app.route("/course/<id>")
     def course(id):
@@ -48,7 +55,7 @@ def create_app():
             return render_template("login.html")
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
-
+        
         course = api.get_course(credentials, id)
         posts = api.get_posts(credentials, id)
         userinfo = api.get_user_info(credentials, "me")
@@ -60,6 +67,7 @@ def create_app():
         session['credentials'] = api.credentials_to_dict(credentials)
 
         return render_template("class.html", course = course, posts = posts, userinfo = userinfo, id = id, error = error)
+
     @app.route("/todo")
     def todo():
         if 'credentials' not in session:
@@ -143,14 +151,33 @@ def create_app():
 
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 
+        userinfo = api.get_user_info(credentials, "me")
+        hiddencourses = db.get_hidden_classes(userinfo['id'])
         courses = api.get_courses(credentials)
+        hidden = []
+        for course in courses:
+            if hiddencourses.find(course['id']) != -1 and course['courseState'] != "ARCHIVED":
+                hidden.append(course)
+
         userinfo = api.get_user_info(credentials, "me")
 
         session['credentials'] = api.credentials_to_dict(credentials)
 
+        return render_template("archived.html", courses = courses, hiddenCourses = hidden, userinfo = userinfo)
 
-        return render_template("archived.html", courses = courses, userinfo = userinfo)
+    @app.route("/hide")
+    def hide():
+        if 'credentials' not in session:
+            return render_template("login.html")
 
+        credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+
+        userinfo = api.get_user_info(credentials, "me")
+        userid = userinfo['id']
+        classid = request.args.get('id')
+        db.togglehide(userid, classid)
+
+        return redirect(url_for('archived'))
 
     @app.route("/logout")
     def logout():

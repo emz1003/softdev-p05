@@ -55,6 +55,7 @@ body {
 
 .post p {
   white-space: pre-line;
+  word-wrap: break-word;
   padding-left: 8px;
   padding-right: 8px;
   text-indent: 0;

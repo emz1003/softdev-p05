@@ -7,10 +7,14 @@ var togglepost = function(e) {
 var layoutPicker = document.getElementById("layout");
 var cssfile = localStorage.getItem('cssfile') || '../static/css/comfortable.css';
 document.getElementById("style").setAttribute("href", cssfile);
-if (cssfile === '../static/css/comfortable.css')
-  document.getElementById("comfortable").setAttribute("selected", "selected");
-else
-  document.getElementById("compact").setAttribute("selected", "selected");
+if (cssfile === '../static/css/comfortable.css') {
+  document.getElementById("comfortable").selected = true;
+  document.getElementById("compact").selected = false;
+} else {
+  document.getElementById("compact").selected = true;
+  document.getElementById("comfortable").selected = false;
+}
+
 
 var changecss = function(e) {
   if (e.target.value === "compact") {

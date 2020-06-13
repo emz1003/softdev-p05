@@ -3,3 +3,24 @@ var togglepost = function(e) {
 
   $(more).slideToggle();
 }
+
+var layoutPicker = document.getElementById("layout");
+var cssfile = localStorage.getItem('cssfile') || '../static/css/comfortable.css';
+document.getElementById("style").setAttribute("href", cssfile);
+if (cssfile === '../static/css/comfortable.css')
+  document.getElementById("comfortable").setAttribute("selected", "selected");
+else
+  document.getElementById("compact").setAttribute("selected", "selected");
+
+var changecss = function(e) {
+  if (e.target.value === "compact") {
+    localStorage.setItem('cssfile', '../static/css/compact.css');
+  } else {
+    localStorage.setItem('cssfile', '../static/css/comfortable.css');
+  }
+
+  cssfile = localStorage.getItem('cssfile');
+  document.getElementById("style").setAttribute("href", cssfile);
+}
+
+layoutPicker.addEventListener('change', changecss);

@@ -30,9 +30,14 @@
         </form>
     </div>
 </div>
-{{results}}
 
-<h5> {{error}}<h5>
+{{ results }}
+
+<h5> {{ error }} </h5>
+&nbsp; Layout <select name="layout" id="layout">
+  <option id="comfortable" value="comfortable">Comfortable</option>
+  <option id="compact" value="compact">Compact</option>
+</select>
 <br>
 
 {% for post in posts %}
@@ -96,5 +101,7 @@
     </div>
   {% endif %}
 {% endfor %}
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 {% endblock %}

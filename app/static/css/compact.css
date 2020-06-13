@@ -1,0 +1,172 @@
+h1, h2, h3, h4, h5, h6 {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+h3, h4, h5, h6 {
+  font-size: 14px;
+}
+
+button {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+* {
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  /* background: #e4eefa; */
+  background-color: #f2f2f2;
+}
+
+.list-group-item {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+  float: left;
+  width: 75%;
+}
+
+.buttons {
+  position: relative;
+  top: 4px;
+  float: right;
+  width: 20%;
+}
+
+.post {
+  cursor: pointer;
+  background-color: white;
+  margin-left: 1px;
+  margin-top: 1px;
+  margin-right: 1px;
+  margin-bottom: 2px;
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.post p {
+  white-space: pre-line;
+  word-wrap: break-word;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-indent: 0;
+  font-size: 14px;
+}
+
+.more {
+  display: none;
+}
+
+.wrapper {
+  position: absolute;
+  top: 14%;
+  left: 75%;
+  transform: translate(-50%,-50%);
+}
+
+.wrapper .search_box {
+  width: 500px;
+  background: #fff;
+  border-radius: 5px;
+  height: 65px;
+  display: flex;
+  padding: 10px;
+  box-shadow: 0 8px 6px -10px #b3c6ff;
+}
+
+.wrapper .search_box .dropdown {
+  width: 150px;
+  border-right: 2px solid #dde2f1;
+  color: #9fa3b1;
+  position: relative;
+  cursor: pointer;
+}
+
+.wrapper .search_box .dropdown .default_option {
+  text-transform: uppercase;
+  padding: 13px 15px;
+  font-size: 14px;
+}
+
+.wrapper .search_box .dropdown ul {
+  position: absolute;
+  top: 70px;
+  left: -10px;
+  background: #fff;
+  width: 150px;
+  border-radius: 5px;
+  padding: 20px;
+  display: none;
+  box-shadow: 8px 8px 6px -10px #b3c6ff;
+}
+
+.wrapper .search_box .dropdown ul.active {
+  display: block;
+}
+
+.wrapper .search_box .dropdown ul li {
+  padding-bottom: 20px;
+}
+
+.wrapper .search_box .dropdown ul li:last-child {
+  padding-bottom: 0;
+}
+
+.wrapper .search_box .dropdown ul li:hover {
+  color: #6f768d;
+}
+
+.wrapper .search_box .dropdown:before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  border: 8px solid;
+  border-color: #5078ef transparent transparent transparent;
+}
+
+.wrapper .search_box .search_field {
+  width: 480px;
+  height: 100%;
+  position: relative;
+}
+
+.wrapper .search_box .search_field .input {
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  font-size: 16px;
+  padding-left: 20px;
+  padding-right: 38px;
+  color: #6f768d;
+}
+
+.wrapper .search_box .search_field .fas {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 22px;
+  color: #5078ef;
+  cursor: pointer;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #9fa3b1;
+}
+::-moz-placeholder { /* Firefox 19+ */
+ color: #9fa3b1;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #9fa3b1;
+}
